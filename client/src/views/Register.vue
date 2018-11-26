@@ -24,7 +24,7 @@
           {{registerError}}
         </v-alert>
 
-        <v-btn color="green" dark @click="register">
+        <v-btn color="red" dark @click="register">
           <v-icon class="mr-2">account_circle</v-icon>
           Register
         </v-btn>

@@ -24,7 +24,7 @@
           {{loginError}}
         </v-alert>
 
-        <v-btn color="green" dark @click="login">
+        <v-btn color="red" dark @click="login">
           <v-icon class="mr-2">fingerprint</v-icon>
           Login
         </v-btn>
