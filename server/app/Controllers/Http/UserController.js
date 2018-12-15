@@ -1,16 +1,17 @@
 'use strict'
 
 const User = use('App/Models/User');
+const Persona = use('Persona');
 
 class UserController {
 
-  async login({ request, auth }) {
-    const { email, password } = request.all();
+  async login({request, auth}) {
+    const {email, password} = request.all();
     const token = await auth.attempt(email, password);
     return token;
   }
 
-  async register({ request }) {
+  async registerUser({ request }) {
     const { email, password } = request.all();
     await User.create({
       email,
@@ -18,6 +19,17 @@ class UserController {
       username: email,
     });
     return this.login(...arguments);
+  }
+  async register({request, auth, response}) {
+    const payload = request.only(['email', 'password', 'password_confirmation'])
+
+    const user = await Persona.register(payload,function () {
+      console.log('good register');
+    });
+
+    // optional
+    await auth.login(user);
+    return user.token;
   }
 }
 

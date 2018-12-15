@@ -38,17 +38,20 @@ export default {
         password: state.loginPassword,
       })
         .then(({ data }) => {
-          commit('setToken', data.token);
+            console.log('login...');
+
+            commit('setToken', data.token);
           router.push('/');
         })
-        .catch(() => {
+        .catch((e) => {
+        console.log(e);
           commit('setLoginError', 'An error has occured trying to login.');
         });
     },
   },
   getters: {
     isLoggedIn(state) {
-      return !!state.token;
+        return !!state.token;
     },
   },
   mutations: {

@@ -11,7 +11,7 @@
       </v-toolbar-title>
     </v-toolbar>
 
-    <div class="pl-4 pr-4 pt-2 pb-2">
+    <div class="pl-4 pr-4 pt-2 pb-2" style="    background-color: gray;">
       <slot>No slot content defined.</slot>
     </div>
   </div>

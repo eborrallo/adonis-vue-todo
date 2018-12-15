@@ -12,7 +12,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     strict: false,
     state: {
-        baseUrl: '/api',
+        baseUrl: '127.0.0.1:3333/api',
     },
     modules: {
         authentication,

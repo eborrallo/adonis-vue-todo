@@ -21,7 +21,9 @@ export default {
         },
         items: [
             {title: 'Home', icon: 'dashboard'},
-            {title: 'About', icon: 'question_answer'}
+            {title: 'About', icon: 'question_answer'},
+            {title: 'Role and Permisions', icon: 'vpn_key'},
+            {title: 'Users', icon: 'person'}
         ]
     },
     actions: {},

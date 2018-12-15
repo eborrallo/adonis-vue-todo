@@ -1,6 +1,6 @@
 <template>
     <v-navigation-drawer
-            class="hidden-sm-and-up"
+            :class="{'hidden-md-and-up': !isLoggedIn }"
             v-model="primaryDrawer.model"
             :permanent="primaryDrawer.type === 'permanent'"
             :temporary="primaryDrawer.type === 'temporary'"
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions,mapState} from 'vuex';
+    import {mapGetters, mapActions, mapState} from 'vuex';
 
     export default {
         computed: {

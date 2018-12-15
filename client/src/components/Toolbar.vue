@@ -2,14 +2,16 @@
 
     <!--<v-toolbar color="red " app absolute :clipped-left="clipped-left">-->
     <v-toolbar app fixed :clipped-left="primaryDrawer.clipped">
-        <v-toolbar-side-icon class="hidden-sm-and-up" @click.stop="setDrawler"
-                             v-if="primaryDrawer.type !== 'permanent'"></v-toolbar-side-icon>
+        <v-toolbar-side-icon  :class="{'hidden-md-and-up': !isLoggedIn }" @click.stop="setDrawler"
+                            ></v-toolbar-side-icon>
         <v-toolbar-title class="mr-4">
-            VUE TODO
+            <v-btn  to="/" fla exactt >
+                VUE TODO
+            </v-btn>
         </v-toolbar-title>
 
         <v-toolbar-items>
-            <v-btn flat v-if="isLoggedIn">
+            <v-btn flat  to="/projects"  v-if="isLoggedIn">
                 <v-icon class="mr-2">playlist_add_check</v-icon>
                 Projects
             </v-btn>
@@ -39,7 +41,6 @@
 
 <script>
     import {mapGetters, mapActions, mapState, mapMutations} from 'vuex';
-
     export default {
         props: ['clipped-left'],
         computed: {
