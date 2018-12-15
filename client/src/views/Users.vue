@@ -2,18 +2,13 @@
     <v-content>
 
         <v-container>
-            <v-layout>
-                <v-flex xs4>
-                    <Projects></Projects>
+            <v-layout row wrap class="pt-4">
+                <v-flex xs12>
+                    <v-card dark color="primary">
+                        <TableUsers></TableUsers>
+                    </v-card>
                 </v-flex>
-
-                <v-flex xs8 class="pl-4" v-if="currentProject">
-                    <Tasks></Tasks>
-                </v-flex>
-
             </v-layout>
-
-
         </v-container>
     </v-content>
 
@@ -21,15 +16,12 @@
 
 <script>
     import {mapGetters, mapState} from 'vuex';
-    import Projects from '@/components/Projects.vue';
-    import Tasks from '@/components/Tasks.vue';
+
     import TableUsers from '@/components/TableUsers.vue';
     import router from '../router';
 
     export default {
         components: {
-            Projects,
-            Tasks,
             TableUsers,
         },
         mounted() {
@@ -38,9 +30,7 @@
             }
         },
         computed: {
-            ...mapState('projects', [
-                'currentProject',
-            ]),
+
             ...mapGetters('authentication', [
                 'isLoggedIn',
             ]),

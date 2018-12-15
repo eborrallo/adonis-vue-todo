@@ -31,6 +31,16 @@ class UserController {
     await auth.login(user);
     return user.token;
   }
+  async getUser({ auth }) {
+    const user = await auth.getUser();
+    return user;
+  }
+
+  async index({ auth }) {
+
+
+    return await User.all();
+  }
 }
 
 module.exports = UserController

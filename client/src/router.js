@@ -5,6 +5,7 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Settings from './views/Settings.vue';
 import Home from './views/Home.vue';
+import Users from './views/Users.vue';
 
 Vue.use(Router);
 
@@ -33,6 +34,11 @@ export default new Router({
             path: '/settings',
             name: 'settings',
             component: Settings,
+        },
+        {
+            path: '/users',
+            name: 'users',
+            component: Users,
         }
     ],
 });

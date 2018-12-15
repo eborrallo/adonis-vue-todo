@@ -2,6 +2,7 @@
     <v-app :dark="dark">
         <Navigation/>
         <Toolbar/>
+
         <!--<div id="app">-->
         <!--<div id="nav">-->
         <!--<router-link to="/">Home</router-link>-->
@@ -51,6 +52,7 @@
 
     footer {
         padding-left: 33px;
+        box-shadow:0px -6px 4px -1px rgba(0, 0, 0, 0.2),
     }
 
     body::-webkit-scrollbar {

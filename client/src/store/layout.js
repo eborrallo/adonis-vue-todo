@@ -20,13 +20,14 @@ export default {
             fixed: true
         },
         items: [
-            {title: 'Home', icon: 'dashboard'},
-            {title: 'About', icon: 'question_answer'},
-            {title: 'Role and Permisions', icon: 'vpn_key'},
-            {title: 'Users', icon: 'person'}
+
         ]
     },
-    actions: {},
+    actions: {
+    setDrawler({commit,}){
+    commit('setDrawler');
+    },
+    },
     getters: {},
     mutations: {
         setDrawler(state) {

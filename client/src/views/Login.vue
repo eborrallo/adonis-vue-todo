@@ -56,6 +56,9 @@
             ...mapActions('authentication', [
                 'login',
             ]),
+            ...mapActions('user', [
+                'me',
+            ]),
         },
     };
 </script>
