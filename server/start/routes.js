@@ -21,7 +21,12 @@ Route.group(() => {
   Route.post('auth/login', 'UserController.login');
 
   Route.post('users/me', 'UserController.getUser').middleware('auth');
-  Route.get('users', 'UserController.index').middleware(['auth', 'is:(administrator)']);
+  Route.get('users/verify-email/:token', 'UserController.verifyEmail');
+  Route.post('users', 'UserController.registerUser').middleware(['auth', 'is:administrator']);
+  Route.get('users', 'UserController.index').middleware(['auth', 'is:administrator']);
+  Route.delete('users/:id', 'UserController.destroy').middleware(['auth', 'is:administrator']);
+  Route.patch('users/:id', 'UserController.update').middleware('auth');
+
 
   Route.get('projects', 'ProjectController.index').middleware('auth');
   //.middleware(['auth','is:(administrator || moderator) && !customer']);

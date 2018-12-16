@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <div>
-            <v-toolbar flat >
+            <v-toolbar flat>
                 <v-toolbar-title>Users</v-toolbar-title>
                 <v-spacer></v-spacer>
 
@@ -18,7 +18,7 @@
                         vertical
                 ></v-divider>
                 <v-dialog v-model="dialog" max-width="500px">
-                    <v-btn slot="activator"  dark class="mb-2">New User</v-btn>
+                    <v-btn slot="activator" dark class="mb-2">New User</v-btn>
                     <v-card>
                         <v-card-title>
                             <span class="headline">{{ formTitle }}</span>
@@ -34,16 +34,22 @@
                                         <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                                     </v-flex>
                                     <v-flex xs12 sm6 md4>
-                                        <v-text-field v-model="editedItem.password" label="Password"></v-text-field>
+                                        <v-text-field :type="'password'" v-model="editedItem.password"
+                                                      label="Password"></v-text-field>
                                     </v-flex>
-                                    <v-flex xs12 sm6 md4>
-                                        <v-text-field v-model="editedItem.account_status" label="Account status"></v-text-field>
+                                    <v-flex xs12 sm6 md4 v-if="editedIndex==-1">
+                                        <v-text-field :type="'password'" v-model="editedItem.password_confirmation"
+                                                      label="Password confirmation"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm6 md4 v-if="editedIndex!=-1">
+                                        <v-text-field v-model="editedItem.account_status"
+                                                      label="Account status"></v-text-field>
                                     </v-flex>
 
-                                    <v-flex xs12 sm6 md4>
+                                    <v-flex xs12 sm6 md4 v-if="editedIndex!=-1">
                                         <v-text-field v-model="editedItem.created_at" label="Created at"></v-text-field>
                                     </v-flex>
-                                    <v-flex xs12 sm6 md4>
+                                    <v-flex xs12 sm6 md4 v-if="editedIndex!=-1">
                                         <v-text-field v-model="editedItem.updated_at" label="Updated at"></v-text-field>
                                     </v-flex>
                                 </v-layout>
@@ -96,7 +102,7 @@
     </v-card>
 </template>
 <script>
-    import {mapGetters, mapState} from 'vuex';
+    import {mapGetters, mapState, mapActions} from 'vuex';
 
     export default {
         computed: {
@@ -113,6 +119,11 @@
             }
         },
         methods: {
+            ...mapActions('user', [
+                'updateUser',
+                'deleteUser',
+                'registerUser'
+            ]),
             editItem (item) {
                 this.editedIndex = this.users.indexOf(item)
                 this.editedItem = Object.assign({}, item)
@@ -120,7 +131,8 @@
             },
             deleteItem (item) {
                 const index = this.users.indexOf(item)
-                confirm('Are you sure you want to delete this item?') && this.users.splice(index, 1)
+                confirm('Are you sure you want to delete this item?') && this.deleteUser(item);
+                this.users.splice(index, 1)
             },
             close () {
                 this.dialog = false
@@ -131,9 +143,11 @@
             },
             save () {
                 if (this.editedIndex > -1) {
+                    this.updateUser(this.editedItem);
                     Object.assign(this.users[this.editedIndex], this.editedItem)
                 } else {
-                    this.users.push(this.editedItem)
+                     this.registerUser(this.editedItem);
+
                 }
                 this.close()
             }
@@ -143,11 +157,12 @@
             return {
                 dialog: false,
                 search: '',
+                editedIndex: -1,
                 editedItem: {
                     account_status: "",
                     created_at: "",
                     email: "",
-                    id:null,
+                    id: null,
                     password: "",
                     updated_at: "",
                     username: null
