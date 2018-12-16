@@ -4,6 +4,8 @@ const User = use('App/Models/User');
 const Persona = use('Persona');
 const InvalidAccessException = use('App/Exceptions/InvalidAccessException');
 const ResourceNotExistException = use('App/Exceptions/ResourceNotExistException');
+const Mail = use('Mail');
+
 
 class UserController {
 
@@ -11,28 +13,38 @@ class UserController {
   async login({request, auth}) {
     const {email, password} = request.all();
     const token = await auth.attempt(email, password);
+    // return token;
+    token.user = await User.query().where('email', email).fetch()
     return token;
   }
 
-  async registerUser({request}) {
+  async signUp(request) {
     const payload = request.only(['username', 'email', 'password', 'password_confirmation'])
 
-    Event.on('user::created', async(user) => {
 
-      console.log('User Event New Register');
-
-    })
-    const user = await Persona.register(payload, function () {
-      console.log('good register');
+    const user = await
+      Persona.register(payload, function () {
+        console.log('good register');
+      });
+    const tokens = await user.tokens().fetch()
+    await Mail.send('emails.welcome', Object.assign({}, user.toJSON(), tokens.toJSON()[0]), (message) => {
+      message
+        .to(user.email)
+        .from('admin@test.com')
+        .subject('Welcome to My App')
     });
+
+    return user
+  }
+
+  async registerUser({request}) {
+    let user = await this.signUp(request);
     return user;
   }
 
   async verifyEmail({params, session, response}) {
     const user = await Persona.verifyEmail(params.token)
     return user;
-    //session.flash({message: 'Email verified'})
-//    response.redirect('back')
   }
 
   async updatePassword({request, auth}) {
@@ -53,17 +65,7 @@ class UserController {
   }
 
   async register({request, auth, response}) {
-    const payload = request.only(['username', 'email', 'password', 'password_confirmation'])
-
-    Event.on('user::created', async(user) => {
-
-      console.log('User Event New Register');
-
-    })
-    const user = await Persona.register(payload, function () {
-      console.log('good register');
-    });
-
+    let user = await this.signUp(request);
     // optional
     await auth.login(user);
     return user.token;
@@ -75,6 +77,8 @@ class UserController {
   }
 
   async index({auth}) {
+    const user = await User.find(23);
+
     return await User.all();
   }
 
@@ -83,8 +87,6 @@ class UserController {
     // const user = await auth.getUser();
     const {id} = params;
     const userToDelete = await User.find(id);
-    // AuthorizationService.verifyPermission(project, user);
-    // await project.delete();
     await userToDelete.delete();
     return userToDelete;
 

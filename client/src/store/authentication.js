@@ -16,7 +16,7 @@ export default {
         logout({commit}) {
             commit('setToken', null);
             commit('user/setUser', null,{root:true});
-            // commit('layout/setDrawler', null,{root:true});
+            commit('layout/resetLayoutState', null,{root:true});
             router.push('/login');
         },
         register({commit, state}) {
@@ -43,7 +43,7 @@ export default {
                     console.log('login...');
 
                     commit('setToken', data.token);
-                    dispatch('user/me',null, {root:true})
+                    commit('user/setUser', data.user[0],{root:true});
                     router.push('/');
                 })
                 .catch((e) => {

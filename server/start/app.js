@@ -19,7 +19,10 @@ const providers = [
   '@adonisjs/persona/providers/PersonaProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
   'adonis-acl/providers/AclProvider',
-  '@adonisjs/cors/providers/CorsProvider'
+  '@adonisjs/cors/providers/CorsProvider',// Creo que esto se ha de aliminar en PRO
+  '@adonisjs/mail/providers/MailProvider',
+  '@adonisjs/framework/providers/ViewProvider'
+
 ]
 
 /*

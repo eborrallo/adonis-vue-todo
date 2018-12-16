@@ -3,11 +3,9 @@
  */
 import Vue from 'vue';
 import HTTP from '../http';
-
-export default {
-    namespaced: true,
-    state: {
-        dark: true,
+function initialState(){
+return {
+dark: true,
         drawers: ['Permanent', 'Persistent', 'Temporary'],
         primaryDrawer: {
             model: false,
@@ -22,7 +20,11 @@ export default {
         items: [
 
         ]
-    },
+}
+}
+export default {
+    namespaced: true,
+    state: initialState(),
     actions: {
     setDrawler({commit,}){
     commit('setDrawler');
@@ -35,7 +37,12 @@ export default {
         },
         setDark (state, dark) {
             state.dark = dark;
-        }
+        },
+        resetLayoutState(state)
+        {
+        	let newState = initialState();
+        	state = Object.assign(state, newState);
+        },
     },
 
 

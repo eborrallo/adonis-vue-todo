@@ -1,11 +1,56 @@
 import router from '../router';
 import HTTP from '../http';
+function initialTableUserState() {
+    return {
+        valid: true,
+        search: '',
+        editedIndex: -1,
+        showPassword: false,
+        editedItem: {
+            account_status: "",
+            created_at: "",
+            email: "",
+            id: null,
+            password: "",
+            password_confirmation: "",
+            updated_at: "",
+            username: ""
+
+        },
+        defaultItem: {
+            account_status: "",
+            created_at: "",
+            email: "borrallorodriguez@gmail.com",
+            id: null,
+            password: "12345678",
+            password_confirmation: "12345678",
+            updated_at: "",
+            username: "kike"
+
+        },
+        headers: [
+            {
+                text: 'Id',
+                align: 'center',
+                sortable: true,
+                value: 'id'
+            },
+            {text: 'Username', value: 'username'},
+            {text: 'Email', value: 'email'},
+            {text: 'Account status', value: 'account_status'},
+            {text: 'Created at', value: 'created_at'},
+            {text: 'Updated at', value: 'updated_at'},
+            {text: 'Actions', value: 'actions'}
+        ]
+    }
+}
 
 export default {
     namespaced: true,
     state: {
         user: null,
         users: null,
+        tableUsers: initialTableUserState(),
     },
     actions: {
         me({commit, state}) {

@@ -52,7 +52,7 @@
             <v-list-tile
 
                     @click=""
-                    to=""
+                    to="/about"
             >
                 <v-list-tile-action>
                     <v-icon>question_answer</v-icon>
@@ -65,7 +65,7 @@
             </v-list-tile>
             <v-list-tile
 
-                    @click="getUsers()"
+
                     to="/users"
             >
                 <v-list-tile-action>

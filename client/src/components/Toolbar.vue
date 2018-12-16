@@ -52,6 +52,7 @@
             ]),
             ...mapState('layout', [
                 'primaryDrawer',
+
             ]),
         },
         methods: {
@@ -60,6 +61,7 @@
             ]),
             ...mapMutations('layout', [
                 'setDrawler',
+
             ]),
         },
     };

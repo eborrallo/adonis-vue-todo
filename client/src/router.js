@@ -6,6 +6,7 @@ import Register from './views/Register.vue';
 import Settings from './views/Settings.vue';
 import Home from './views/Home.vue';
 import Users from './views/Users.vue';
+import About from './views/About.vue';
 
 Vue.use(Router);
 
@@ -39,6 +40,10 @@ export default new Router({
             path: '/users',
             name: 'users',
             component: Users,
+        } ,{
+            path: '/about',
+            name: 'about',
+            component: About,
         }
     ],
 });
