@@ -38,7 +38,7 @@
             <v-list-tile
 
                     @click=""
-                    to=""
+                    to="/"
             >
                 <v-list-tile-action>
                     <v-icon>dashboard</v-icon>

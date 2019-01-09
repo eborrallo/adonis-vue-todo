@@ -20,12 +20,12 @@ function initialTableUserState() {
         defaultItem: {
             account_status: "",
             created_at: "",
-            email: "borrallorodriguez@gmail.com",
+            email: "",
             id: null,
-            password: "12345678",
-            password_confirmation: "12345678",
+            password: "",
+            password_confirmation: "",
             updated_at: "",
-            username: "kike"
+            username: ""
 
         },
         headers: [
@@ -48,6 +48,7 @@ function initialTableUserState() {
 export default {
     namespaced: true,
     state: {
+        verifyToken: null,
         user: null,
         users: null,
         tableUsers: initialTableUserState(),
@@ -98,6 +99,14 @@ export default {
                     // commit('removeProject', user);
                 });
         },
+        verifyEmail({commit}, token){
+            return HTTP().get(`/auth/verify-email/${encodeURI(token)}`)
+                .then(() => {
+                    console.log('User Account Verify Mail Succesfully');
+
+                    // commit('removeProject', user);
+                });
+        }
     },
 
     mutations: {
@@ -112,7 +121,6 @@ export default {
         },
         addUser(state, user) {
             state.users.push(user);
-        },
-
+        }
     },
 };

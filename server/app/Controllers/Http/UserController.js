@@ -26,8 +26,9 @@ class UserController {
       Persona.register(payload, function () {
         console.log('good register');
       });
-    const tokens = await user.tokens().fetch()
-    await Mail.send('emails.welcome', Object.assign({}, user.toJSON(), tokens.toJSON()[0]), (message) => {
+    const tokens = await user.tokens().fetch();
+    const token = tokens.toJSON()[0].token.replace("/", "thisIsSlash");
+    await Mail.send('emails.welcome', Object.assign({}, user.toJSON(), {token}), (message) => {
       message
         .to(user.email)
         .from('admin@test.com')
@@ -43,8 +44,9 @@ class UserController {
   }
 
   async verifyEmail({params, session, response}) {
-    const user = await Persona.verifyEmail(params.token)
-    return user;
+    const token = params.token.replace("thisIsSlash", "/");
+    return await Persona.verifyEmail(token);
+
   }
 
   async updatePassword({request, auth}) {

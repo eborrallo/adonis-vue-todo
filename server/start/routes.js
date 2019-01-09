@@ -19,9 +19,9 @@ const Route = use('Route')
 Route.group(() => {
   Route.post('auth/register', 'UserController.register');
   Route.post('auth/login', 'UserController.login');
+  Route.get('auth/verify-email/:token', 'UserController.verifyEmail');
 
   Route.post('users/me', 'UserController.getUser').middleware('auth');
-  Route.get('users/verify-email/:token', 'UserController.verifyEmail');
   Route.post('users', 'UserController.registerUser').middleware(['auth', 'is:administrator']);
   Route.get('users', 'UserController.index').middleware(['auth', 'is:administrator']);
   Route.delete('users/:id', 'UserController.destroy').middleware(['auth', 'is:administrator']);

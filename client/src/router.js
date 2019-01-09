@@ -16,7 +16,7 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
-        },{
+        }, {
             path: '/projects',
             name: 'projects',
             component: Projects,
@@ -40,10 +40,16 @@ export default new Router({
             path: '/users',
             name: 'users',
             component: Users,
-        } ,{
+        },
+        {
             path: '/about',
             name: 'about',
             component: About,
-        }
+        },
+        {
+            path: '/verify-mail',
+            name: 'verify-mail',
+            component: Home,
+        },
     ],
 });
